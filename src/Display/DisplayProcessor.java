@@ -5,6 +5,27 @@ import StudentManager.StudentManager;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Controller class that processes user input and manages the interaction between
+ * the user interface and business logic components.
+ * 
+ * Responsibilities:
+ * - Menu navigation handling
+ * - User input processing
+ * - Input validation
+ * - Command routing
+ * - Integration between UI and data operations
+ * 
+ * Features:
+ * - Main menu processing
+ * - Student data management
+ * - Search operations
+ * - Sorting operations
+ * - File I/O handling
+ * 
+ * @author UNDERSTANDON
+ * @version 1.0
+ */
 public class DisplayProcessor {
     private final StudentManager studentManager;
     private final Scanner scanner;

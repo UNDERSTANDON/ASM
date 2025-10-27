@@ -2,6 +2,26 @@ package StudentManager;
 import Object.Student;
 import java.util.ArrayList;
 
+/**
+ * Manages the collection of students and provides CRUD operations, search functionality,
+ * and sorting algorithms for student data manipulation.
+ * 
+ * Features:
+ * - CRUD operations (Create, Read, Update, Delete)
+ * - Search operations (by ID, name, mark range, ranking)
+ * - Multiple sorting algorithms:
+ *   - Bubble Sort (O(n²))
+ *   - Quick Sort (O(n log n))
+ *   - Merge Sort (O(n log n))
+ * 
+ * Performance Notes:
+ * - Bubble Sort: Simple but inefficient for large datasets
+ * - Quick Sort: Best average-case performance
+ * - Merge Sort: Consistent performance, stable sort
+ * 
+ * @author UNDERSTANDON
+ * @version 1.0
+ */
 public class StudentManager {
     private final ArrayList<Student> students = new ArrayList<>();
 

@@ -7,7 +7,24 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+/**
+ * Utility class for file writing operations with UTF-8 encoding support.
+ * Provides abstracted file writing functionality with proper resource management.
+ * 
+ * Features:
+ * - UTF-8 character encoding
+ * - Automatic directory creation
+ * - Append mode support
+ * - Resource cleanup
+ * - Exception handling
+ * 
+ * Usage Example:
+ * StreamWriter writer = new StreamWriter("path/to/dir", "filename", ".txt");
+ * writer.writeFile("content", false); // false for overwrite, true for append
+ * 
+ * @author UNDERSTANDON
+ * @version 1.0
+ */
 public class StreamWriter {
     private String dir;
     private String fileName;

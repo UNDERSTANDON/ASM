@@ -2,6 +2,26 @@ package Display;
 import Object.Student;
 import java.util.ArrayList;
 
+/**
+ * Provides user interface and display functionality for the Student Management System.
+ * Handles various forms of data presentation and menu displays.
+ * 
+ * Display Features:
+ * - Single and multiple student display
+ * - Tabular data presentation
+ * - Search result formatting
+ * - Statistical analysis display
+ * - Menu interfaces (main, search, sort, IO)
+ * 
+ * Output Formats:
+ * - Detailed view (individual records)
+ * - Table view (aligned columns)
+ * - Statistics view (percentages)
+ * - Interactive menus
+ * 
+ * @author UNDERSTANDON
+ * @version 1.0
+ */
 public class DisplayInfo {
 
     // Display a single student

@@ -1,5 +1,19 @@
 package Object;
 
+/**
+ * Represents a student entity in the Student Management System.
+ * This class manages student information including ID, name, marks, and automatic ranking calculation.
+ * 
+ * Ranking System:
+ * - Excellent: 9.0 - 10.0
+ * - Very Good: 7.5 - 8.9
+ * - Good: 6.5 - 7.4
+ * - Medium: 5.0 - 6.4
+ * - Fail: 0.0 - 4.9
+ * 
+ * @author UNDERSTANDON
+ * @version 1.0
+ */
 public class Student {
     private int id;
     private String name;

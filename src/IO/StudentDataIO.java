@@ -4,6 +4,26 @@ import StudentManager.StudentManager;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Handles data persistence and file operations for the Student Management System.
+ * Supports multiple file formats and provides import/export functionality.
+ * 
+ * Supported File Formats:
+ * - CSV (Comma-Separated Values)
+ *   Format: ID,Name,Mark[,Ranking]
+ * - Markdown (MD)
+ *   Includes: Tables, statistics, and raw data
+ * 
+ * Features:
+ * - File import/export
+ * - Format conversion
+ * - Sample data generation
+ * - Statistical reporting
+ * - Error handling
+ * 
+ * @author UNDERSTANDON
+ * @version 1.0
+ */
 public class StudentDataIO {
     
     // Export students to markdown file
