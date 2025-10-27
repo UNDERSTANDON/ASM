@@ -1,0 +1,11 @@
+ID,Name,Mark
+1,Student with 0 mark,0.0
+2,Student with 10 mark,10.0
+3,Student with 5.0 mark,5.0
+4,Student with 6.5 mark,6.5
+5,Student with 7.5 mark,7.5
+6,Student with 9.0 mark,9.0
+7,Student with very long name that might cause display issues,8.0
+8,Student with special chars !@#$%^&*(),7.3
+9,Student with numbers 123 in name,6.7
+10,Student with spaces   in   name,5.9

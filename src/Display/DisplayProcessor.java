@@ -278,7 +278,8 @@ public class DisplayProcessor {
         if (!filename.endsWith(".md")) {
             filename += ".md";
         }
-        StudentDataIO.exportToMarkdown(studentManager, filename);
+        String exportPath = "Data/" + filename;
+        StudentDataIO.exportToMarkdown(studentManager, exportPath);
     }
 
     private void exportToCSV() {
@@ -290,22 +291,43 @@ public class DisplayProcessor {
         if (!filename.endsWith(".csv")) {
             filename += ".csv";
         }
-        StudentDataIO.exportToCSV(studentManager, filename);
+        String exportPath = "Data/" + filename;
+        StudentDataIO.exportToCSV(studentManager, exportPath);
     }
 
     private void importFromMarkdown() {
-        System.out.print("Enter filename to import from: ");
-        String filename = scanner.nextLine().trim();
-        if (filename.isEmpty()) {
-            System.out.println("No filename provided.");
+        java.io.File dataDir = new java.io.File("Data");
+        java.io.FilenameFilter mdFilter = (dir, name) -> name.toLowerCase().endsWith(".md") || name.toLowerCase().endsWith(".markdown");
+        String[] files = dataDir.list(mdFilter);
+        if (files == null || files.length == 0) {
+            System.out.println("No markdown files found in Data/ directory.");
             return;
         }
-        
-        if (!StudentDataIO.fileExists(filename)) {
-            System.out.println("File not found: " + filename);
+        System.out.println("Available markdown files in Data/: ");
+        for (int i = 0; i < files.length; i++) {
+            System.out.printf("%d. %s\n", i + 1, files[i]);
+        }
+        System.out.print("Enter file number or name to import: ");
+        String input = scanner.nextLine().trim();
+        String filename = null;
+        try {
+            int idx = Integer.parseInt(input) - 1;
+            if (idx >= 0 && idx < files.length) {
+                filename = "Data/" + files[idx];
+            }
+        } catch (NumberFormatException e) {
+            // Not a number, treat as filename
+            for (String f : files) {
+                if (f.equalsIgnoreCase(input)) {
+                    filename = "Data/" + f;
+                    break;
+                }
+            }
+        }
+        if (filename == null) {
+            System.out.println("Invalid selection.");
             return;
         }
-        
         System.out.print("This will add students to the current data. Continue? (y/n): ");
         String confirm = scanner.nextLine().trim().toLowerCase();
         if (confirm.equals("y") || confirm.equals("yes")) {
@@ -316,18 +338,38 @@ public class DisplayProcessor {
     }
 
     private void importFromCSV() {
-        System.out.print("Enter filename to import from: ");
-        String filename = scanner.nextLine().trim();
-        if (filename.isEmpty()) {
-            System.out.println("No filename provided.");
+        java.io.File dataDir = new java.io.File("Data");
+        java.io.FilenameFilter csvFilter = (dir, name) -> name.toLowerCase().endsWith(".csv");
+        String[] files = dataDir.list(csvFilter);
+        if (files == null || files.length == 0) {
+            System.out.println("No CSV files found in Data/ directory.");
             return;
         }
-        
-        if (!StudentDataIO.fileExists(filename)) {
-            System.out.println("File not found: " + filename);
+        System.out.println("Available CSV files in Data/: ");
+        for (int i = 0; i < files.length; i++) {
+            System.out.printf("%d. %s\n", i + 1, files[i]);
+        }
+        System.out.print("Enter file number or name to import: ");
+        String input = scanner.nextLine().trim();
+        String filename = null;
+        try {
+            int idx = Integer.parseInt(input) - 1;
+            if (idx >= 0 && idx < files.length) {
+                filename = "Data/" + files[idx];
+            }
+        } catch (NumberFormatException e) {
+            // Not a number, treat as filename
+            for (String f : files) {
+                if (f.equalsIgnoreCase(input)) {
+                    filename = "Data/" + f;
+                    break;
+                }
+            }
+        }
+        if (filename == null) {
+            System.out.println("Invalid selection.");
             return;
         }
-        
         System.out.print("This will add students to the current data. Continue? (y/n): ");
         String confirm = scanner.nextLine().trim().toLowerCase();
         if (confirm.equals("y") || confirm.equals("yes")) {
@@ -346,7 +388,8 @@ public class DisplayProcessor {
         if (!filename.endsWith(".csv")) {
             filename += ".csv";
         }
-        StudentDataIO.createSampleDataFile(filename);
+        String exportPath = "Data/" + filename;
+        StudentDataIO.createSampleDataFile(exportPath);
     }
 
     private int getIntInput() {
