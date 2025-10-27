@@ -1,4 +1,5 @@
 package Display;
+
 import IO.StudentDataIO;
 import Object.Student;
 import StudentManager.StudentManager;
@@ -6,7 +7,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Controller class that processes user input and manages the interaction between
+ * Controller class that processes user input and manages the interaction
+ * between
  * the user interface and business logic components.
  * 
  * Responsibilities:
@@ -39,7 +41,7 @@ public class DisplayProcessor {
     public boolean processMainMenu() {
         DisplayInfo.displayMainMenu();
         int choice = getIntInput();
-        
+
         switch (choice) {
             case 1 -> addStudent();
             case 2 -> editStudent();
@@ -60,17 +62,32 @@ public class DisplayProcessor {
     }
 
     private void addStudent() {
+        // Init variables
+        Student student;
+        int id;
+        String name;
+        float mark;
+
         System.out.println("\n=== ADD STUDENT ===");
         System.out.print("Enter Student ID: ");
-        int id = getIntInput();
-        
+        id = getIntInput();
+
         System.out.print("Enter Student Name: ");
-        String name = scanner.nextLine().trim();
-        
-        System.out.print("Enter Student Mark (0-10): ");
-        float mark = getFloatInput();
-        
-        Student student = new Student(id, mark, name);
+        name = scanner.nextLine().trim();
+
+        while (true) {
+            System.out.print("Enter Student Mark (0-10): ");
+            mark = getFloatInput();
+
+            // Rank checking since we don't want to add student with marking not within 0-10
+            String rank = new Student().getRank(mark);
+            if (!isValidRank(rank)) {
+                System.out.println("Invalid marking! Please re-enter.");
+                continue;
+            }
+            break;
+        }
+        student = new Student(id, mark, name);
         studentManager.addStudent(student);
     }
 
@@ -78,28 +95,28 @@ public class DisplayProcessor {
         System.out.println("\n=== EDIT STUDENT ===");
         System.out.print("Enter Student ID to edit: ");
         int id = getIntInput();
-        
+
         Student existingStudent = studentManager.findStudentById(id);
         if (existingStudent == null) {
             System.out.println("Student not found!");
             return;
         }
-        
+
         System.out.println("Current student information:");
         DisplayInfo.displayStudent(existingStudent);
-        
+
         System.out.print("Enter new name (or press Enter to keep current): ");
         String newName = scanner.nextLine().trim();
         if (newName.isEmpty()) {
             newName = existingStudent.getName();
         }
-        
+
         System.out.print("Enter new mark (or -1 to keep current): ");
         float newMark = getFloatInput();
         if (newMark == -1) {
             newMark = existingStudent.getMark();
         }
-        
+
         studentManager.editStudent(id, newName, newMark);
     }
 
@@ -107,7 +124,7 @@ public class DisplayProcessor {
         System.out.println("\n=== DELETE STUDENT ===");
         System.out.print("Enter Student ID to delete: ");
         int id = getIntInput();
-        
+
         Student student = studentManager.findStudentById(id);
         if (student != null) {
             System.out.println("Student to be deleted:");
@@ -127,7 +144,7 @@ public class DisplayProcessor {
         while (searching) {
             DisplayInfo.displaySearchMenu();
             int choice = getIntInput();
-            
+
             switch (choice) {
                 case 1 -> searchById();
                 case 2 -> searchByName();
@@ -171,7 +188,7 @@ public class DisplayProcessor {
         System.out.println("5. Excellent");
         System.out.print("Enter ranking number: ");
         int rankChoice = getIntInput();
-        
+
         String rank;
         switch (rankChoice) {
             case 1 -> rank = "Fail";
@@ -184,7 +201,7 @@ public class DisplayProcessor {
                 return;
             }
         }
-        
+
         ArrayList<Student> results = studentManager.findStudentsByRank(rank);
         DisplayInfo.displaySearchResults(results, "Ranking Search");
     }
@@ -194,7 +211,7 @@ public class DisplayProcessor {
         while (sorting) {
             DisplayInfo.displaySortMenu();
             int choice = getIntInput();
-            
+
             switch (choice) {
                 case 1 -> studentManager.bubbleSortById();
                 case 2 -> studentManager.quickSortById();
@@ -205,7 +222,7 @@ public class DisplayProcessor {
                 case 0 -> sorting = false;
                 default -> System.out.println("Invalid choice. Please try again.");
             }
-            
+
             if (choice >= 1 && choice <= 6) {
                 System.out.println("Students after sorting:");
                 DisplayInfo.displayStudentsTable(studentManager.getAllStudents());
@@ -223,7 +240,7 @@ public class DisplayProcessor {
             System.out.println("2. Detailed format");
             System.out.print("Enter your choice: ");
             int choice = getIntInput();
-            
+
             if (choice == 1) {
                 DisplayInfo.displayStudentsTable(students);
             } else {
@@ -256,7 +273,7 @@ public class DisplayProcessor {
         while (ioMenuActive) {
             DisplayInfo.displayIOMenu();
             int choice = getIntInput();
-            
+
             switch (choice) {
                 case 1 -> exportToMarkdown();
                 case 2 -> exportToCSV();
@@ -297,7 +314,8 @@ public class DisplayProcessor {
 
     private void importFromMarkdown() {
         java.io.File dataDir = new java.io.File("Data");
-        java.io.FilenameFilter mdFilter = (dir, name) -> name.toLowerCase().endsWith(".md") || name.toLowerCase().endsWith(".markdown");
+        java.io.FilenameFilter mdFilter = (dir, name) -> name.toLowerCase().endsWith(".md")
+                || name.toLowerCase().endsWith(".markdown");
         String[] files = dataDir.list(mdFilter);
         if (files == null || files.length == 0) {
             System.out.println("No markdown files found in Data/ directory.");
@@ -412,5 +430,9 @@ public class DisplayProcessor {
                 System.out.print("Invalid input. Please enter a valid number: ");
             }
         }
+    }
+
+    private boolean isValidRank(String rank) {
+        return rank != null;
     }
 }
