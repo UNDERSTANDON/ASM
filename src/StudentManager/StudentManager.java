@@ -45,6 +45,28 @@ public class StudentManager {
         return true;
     }
 
+    public void addStudentDirect(Student student) {
+        if (isAddable(student))
+            students.add(student);
+        else
+            System.out.println("Failed to add student.");
+    }
+
+    public boolean isAddable(Student student) {
+        if (student == null) {
+            System.out.println("Error: Cannot add null student.");
+            return false;
+        }
+        
+        // Check if student ID already exists
+        if (findStudentById(student.getId()) != null) {
+            System.out.println("Error: Student with ID " + student.getId() + " already exists.");
+            return false;
+        }
+        
+        return true;
+    }
+
     // Edit an existing student
     public boolean editStudent(int id, String newName, float newMark) {
         Student student = findStudentById(id);
@@ -135,6 +157,8 @@ public class StudentManager {
         System.out.println("Students sorted by ID using Bubble Sort.");
     }
 
+    
+
     // Bubble Sort by Mark
     public void bubbleSortByMark() {
         int n = students.size();
@@ -157,6 +181,8 @@ public class StudentManager {
             System.out.println("Students sorted by ID using Quick Sort.");
         }
     }
+
+    
 
     private void quickSortByIdHelper(int low, int high) {
         if (low < high) {
@@ -279,6 +305,8 @@ public class StudentManager {
         }
     }
 
+    
+
     // Merge Sort by Mark
     public void mergeSortByMark() {
         if (!students.isEmpty()) {
@@ -350,5 +378,46 @@ public class StudentManager {
     public void clearAllStudents() {
         students.clear();
         System.out.println("All students cleared.");
+    }
+
+    // For Testing Purposes Only
+
+    // Cloner 
+    public StudentManager clone() {
+        StudentManager copyData = new StudentManager();
+        for (var i : this.getAllStudents()) {
+            copyData.addStudentDirect(new Student(i.getId(), i.getMark(), i.getName()));
+            
+        }
+        return copyData;
+    }
+    
+    
+    // Silent Merge Sort by ID
+    public void silentMergeSortById() {
+        if (!students.isEmpty()) {
+            mergeSortByIdHelper(0, students.size() - 1);
+        }
+    }
+    
+    // Silent Quick Sort by ID
+    public void silentQuickSortById() {
+        if (!students.isEmpty()) {
+            quickSortByIdHelper(0, students.size() - 1);
+        }
+    }
+    
+    // Silent Bubble Sort by ID
+    public void silentBubbleSortById() {
+        int n = students.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (students.get(j).getId() > students.get(j + 1).getId()) {
+                    Student temp = students.get(j);
+                    students.set(j, students.get(j + 1));
+                    students.set(j + 1, temp);
+                }
+            }
+        }
     }
 }
