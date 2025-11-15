@@ -1,7 +1,6 @@
-import StudentManager.StudentManager;
-import Object.Student;
-import Display.DisplayInfo;
 import IO.StudentDataIO;
+import Object.Student;
+import StudentManager.StudentManager;
 import java.util.ArrayList;
 
 public class TestSuite {

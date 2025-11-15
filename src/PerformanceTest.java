@@ -38,9 +38,9 @@ public class PerformanceTest {
         StudentManager baseData = createTestData(size);
 
         // Get Clone foreach sort
-        StudentManager managerQuickSort = baseData.clone();
-        StudentManager managerMergeSort = baseData.clone();
-        StudentManager managerBubbleSort = baseData.clone();
+        StudentManager managerQuickSort = baseData.cloner();
+        StudentManager managerMergeSort = baseData.cloner();
+        StudentManager managerBubbleSort = baseData.cloner();
         
         // Test Bubble Sort by ID (skip for large sizes)
         long bubbleTime = -1L;
@@ -114,9 +114,9 @@ public class PerformanceTest {
         StudentManager baseData = createTestData(size);
 
         // Get Clone foreach sort
-        StudentManager managerQuickSort = baseData.clone();
-        StudentManager managerMergeSort = baseData.clone();
-        StudentManager managerBubbleSort = baseData.clone();
+        StudentManager managerQuickSort = baseData.cloner();
+        StudentManager managerMergeSort = baseData.cloner();
+        StudentManager managerBubbleSort = baseData.cloner();
         
         // Test Bubble Sort by ID
         measureResourceUsage(() -> managerBubbleSort.bubbleSortById(), managerBubbleSort);
@@ -169,9 +169,9 @@ public class PerformanceTest {
         for (var size : TEST_SIZES) {
             StudentManager baseData = createTestData(size);
 
-            StudentManager tQuick = baseData.clone();
-            StudentManager tMerge = baseData.clone();
-            StudentManager tBubble = baseData.clone();
+            StudentManager tQuick = baseData.cloner();
+            StudentManager tMerge = baseData.cloner();
+            StudentManager tBubble = baseData.cloner();
 
             long bubbleTime = -1L;
             // Skip bubble sort for large sizes to avoid very long runs
@@ -219,9 +219,9 @@ public class PerformanceTest {
         for (var size : TEST_SIZES) {
             StudentManager baseData = createTestData(size);
 
-            StudentManager mQuick = baseData.clone();
-            StudentManager mMerge = baseData.clone();
-            StudentManager mBubble = baseData.clone();
+            StudentManager mQuick = baseData.cloner();
+            StudentManager mMerge = baseData.cloner();
+            StudentManager mBubble = baseData.cloner();
 
             Runtime runtime = Runtime.getRuntime();
 

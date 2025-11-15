@@ -383,11 +383,10 @@ public class StudentManager {
     // For Testing Purposes Only
 
     // Cloner 
-    public StudentManager clone() {
+    public StudentManager cloner() {
         StudentManager copyData = new StudentManager();
         for (var i : this.getAllStudents()) {
             copyData.addStudentDirect(new Student(i.getId(), i.getMark(), i.getName()));
-            
         }
         return copyData;
     }
