@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Random;
 
 public class PerformanceTest {
-    // private static final int[] TEST_SIZES = { 10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000 };
+    private static final int[] TEST_SIZES = { 10, 25, 50, 100, 250, 500, 1000 };
     // private static final int[] TEST_SIZES = { 10000 }; // Just for testing
-    private static final int[] TEST_SIZES = { 10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000, 100000 }; // For intensive testing
+    // private static final int[] TEST_SIZES = { 10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000, 100000 }; // Full range
 
     // If sample size is 10000 or above, skip Bubble Sort to avoid long wait times
     public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class PerformanceTest {
         }
 
         System.out.println("\n=== PERFORMANCE TEST COMPLETED ===");
-    System.out.println("Note: Times are in milliseconds and may vary based on system performance.");
+        System.out.println("Note: Times are in milliseconds and may vary based on system performance.");
         exportToMarkdownResult();
     }
 
@@ -41,7 +41,7 @@ public class PerformanceTest {
         StudentManager managerQuickSort = baseData.cloner();
         StudentManager managerMergeSort = baseData.cloner();
         StudentManager managerBubbleSort = baseData.cloner();
-        
+
         // Test Bubble Sort by ID (skip for large sizes)
         long bubbleTime = -1L;
         if (size <= 10000) {
@@ -50,7 +50,7 @@ public class PerformanceTest {
 
         // Test Quick Sort by ID
         long quickTime = measureSortingTime(() -> managerQuickSort.silentQuickSortById(), managerQuickSort, size);
-        
+
         // Test Merge Sort by ID
         long mergeTime = measureSortingTime(() -> managerMergeSort.silentMergeSortById(), managerMergeSort, size);
 
@@ -67,7 +67,7 @@ public class PerformanceTest {
         sortOperation.run();
         var endTime = System.nanoTime();
 
-    return (endTime - startTime) / 1_000_000; // Convert to milliseconds
+        return (endTime - startTime) / 1_000_000; // Convert to milliseconds
     }
 
     private static StudentManager createTestData(int size) {
@@ -77,7 +77,8 @@ public class PerformanceTest {
         // Generate a shuffled list of unique IDs in range [1, size*2]
         int maxId = Math.max(size * 2, size + 1);
         List<Integer> ids = new ArrayList<>(maxId);
-        for (int i = 1; i <= maxId; i++) ids.add(i);
+        for (int i = 1; i <= maxId; i++)
+            ids.add(i);
         Collections.shuffle(ids, random);
 
         for (var i = 0; i < size; i++) {
@@ -97,7 +98,8 @@ public class PerformanceTest {
 
         int maxId = Math.max(size * 2, size + 1);
         List<Integer> ids = new ArrayList<>(maxId);
-        for (int i = 1; i <= maxId; i++) ids.add(i);
+        for (int i = 1; i <= maxId; i++)
+            ids.add(i);
         Collections.shuffle(ids, random);
 
         for (var i = 0; i < size; i++) {
@@ -108,8 +110,7 @@ public class PerformanceTest {
         }
     }
 
-    private static void testingSortingResourceUsage(int size)
-    {
+    private static void testingSortingResourceUsage(int size) {
         // Create test data
         StudentManager baseData = createTestData(size);
 
@@ -117,13 +118,13 @@ public class PerformanceTest {
         StudentManager managerQuickSort = baseData.cloner();
         StudentManager managerMergeSort = baseData.cloner();
         StudentManager managerBubbleSort = baseData.cloner();
-        
+
         // Test Bubble Sort by ID
         measureResourceUsage(() -> managerBubbleSort.bubbleSortById(), managerBubbleSort);
-        
+
         // Test Quick Sort by ID
         measureResourceUsage(() -> managerQuickSort.quickSortById(), managerQuickSort);
-        
+
         // Test Merge Sort by ID
         measureResourceUsage(() -> managerMergeSort.mergeSortById(), managerMergeSort);
     }
@@ -153,18 +154,17 @@ public class PerformanceTest {
         System.out.println("Delta (After - Before): " + ((usedAfter - usedBefore) / (1024 * 1024)) + " MB");
     }
 
-    private static void exportProcessingTimes()
-    {
+    private static void exportProcessingTimes() {
         new java.io.File("Test/results").mkdirs();
 
         StringBuilder md = new StringBuilder();
         StringBuilder csv = new StringBuilder();
 
-    md.append("# Processing Time Results\n\n");
-    md.append("| Size | Bubble Sort (ms) | Quick Sort (ms) | Merge Sort (ms) |\n");
-    md.append("|------|------------------|-----------------|------------------|\n");
+        md.append("# Processing Time Results\n\n");
+        md.append("| Size | Bubble Sort (ms) | Quick Sort (ms) | Merge Sort (ms) |\n");
+        md.append("|------|------------------|-----------------|------------------|\n");
 
-    csv.append("Size,Bubble(ms),Quick(ms),Merge(ms)\n");
+        csv.append("Size,Bubble(ms),Quick(ms),Merge(ms)\n");
 
         for (var size : TEST_SIZES) {
             StudentManager baseData = createTestData(size);
@@ -203,8 +203,7 @@ public class PerformanceTest {
         }
     }
 
-    private static void exportResourceUsageReports()
-    {
+    private static void exportResourceUsageReports() {
         new java.io.File("Test/results").mkdirs();
 
         StringBuilder md = new StringBuilder();
@@ -276,4 +275,6 @@ public class PerformanceTest {
         exportProcessingTimes();
         exportResourceUsageReports();
     }
+
+    
 }
