@@ -164,7 +164,7 @@ public class StudentManager {
         int n = students.size();
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
-                if (students.get(j).getMark() > students.get(j + 1).getMark()) {
+                if (students.get(j).getMark() < students.get(j + 1).getMark()) {
                     Student temp = students.get(j);
                     students.set(j, students.get(j + 1));
                     students.set(j + 1, temp);
@@ -233,7 +233,7 @@ public class StudentManager {
         int i = (low - 1);
         
         for (int j = low; j < high; j++) {
-            if (students.get(j).getMark() <= pivot) {
+            if (students.get(j).getMark() >= pivot) {
                 i++;
                 Student temp = students.get(i);
                 students.set(i, students.get(j));
@@ -341,7 +341,8 @@ public class StudentManager {
         int i = 0, j = 0, k = left;
 
         while (i < n1 && j < n2) {
-            if (leftArray.get(i).getMark() <= rightArray.get(j).getMark()) {
+            // For descending order, pick the larger mark first
+            if (leftArray.get(i).getMark() >= rightArray.get(j).getMark()) {
                 students.set(k, leftArray.get(i));
                 i++;
             } else {
