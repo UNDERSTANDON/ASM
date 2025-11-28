@@ -420,4 +420,29 @@ public class StudentManager {
             }
         }
     }
+
+    // Get top K students by mark using Max-Heap (Priority Queue)
+    public ArrayList<Student> getTopStudentsByMarkWithMaxHeap(int k) {
+        if (k <= 0 || students.isEmpty()) {
+            return new ArrayList<>();
+        }
+        
+        k = Math.min(k, students.size()); // Ensure k doesn't exceed student count
+        
+        // Max-Heap: students with highest marks come out first
+        java.util.PriorityQueue<Student> maxHeap = new java.util.PriorityQueue<>(
+            (s1, s2) -> Float.compare(s2.getMark(), s1.getMark())
+        );
+        
+        // Add all students to heap
+        maxHeap.addAll(students);
+        
+        // Extract top K students
+        ArrayList<Student> topStudents = new ArrayList<>();
+        for (int i = 0; i < k; i++) {
+            topStudents.add(maxHeap.poll());
+        }
+        
+        return topStudents;
+    }
 }

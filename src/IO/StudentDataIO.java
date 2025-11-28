@@ -245,4 +245,19 @@ public class StudentDataIO {
         }
         return "";
     }
+
+    // Load dataset from file and return raw lines
+    public static ArrayList<String> loadDataSet(String filename) {
+        ArrayList<String> dataset = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                dataset.add(line);
+            }
+            return dataset;
+        } catch (IOException e) {
+            System.err.println("Error loading dataset from " + filename + ": " + e.getMessage());
+            return null;
+        }
+    }
 }
